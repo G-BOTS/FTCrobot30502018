@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  */
 
 @TeleOp(name="3050: Teleop 2017", group="3050")
-@Disabled
+//@Disabled
 public class Teleop2017 extends OpMode
 {
     Hardware3050 robot = new Hardware3050();

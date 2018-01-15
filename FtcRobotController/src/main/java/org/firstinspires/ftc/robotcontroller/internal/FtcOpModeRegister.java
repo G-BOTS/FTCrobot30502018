@@ -76,16 +76,16 @@ public class FtcOpModeRegister implements OpModeRegister {
         /**
          * Any manual OpMode class registrations should go here.
          */
-        manager.register("Teleop 2017", Teleop2017.class);
+       // manager.register("Teleop 2017", Teleop2017.class);
         //manager.register("Teleop 2016", Teleop2016.class);
-        manager.register("Auto2017", Auto2017.class);
+        //manager.register("Auto2017", Auto2017.class);
         //manager.register("Demo", Demo.class);
-        manager.register("Auto2018", Auto2018.class);
-        manager.register("RedAuto2017", RedAuto2017.class);
-        manager.register("RedLeft18",RedLeft18.class);
-        manager.register("BlueRight18",BlueRight18.class);
-        manager.register("RedRight18",RedRight18.class);
-        manager.register("BlueLeft18",BlueLeft18.class);
+       // manager.register("Auto2018", Auto2018.class);
+       // manager.register("RedAuto2017", RedAuto2017.class);
+        //manager.register("RedLeft18",RedLeft18.class);
+        //manager.register("BlueRight18",BlueRight18.class);
+       // manager.register("RedRight18",RedRight18.class);
+        //manager.register("BlueLeft18",BlueLeft18.class);
 
     }
 }

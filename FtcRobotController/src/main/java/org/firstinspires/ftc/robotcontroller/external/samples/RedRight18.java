@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 @Autonomous(name="3050: RedRight18", group="3050")
-@Disabled
+//@Disabled
 public class RedRight18 extends LinearOpMode {
 
     Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
