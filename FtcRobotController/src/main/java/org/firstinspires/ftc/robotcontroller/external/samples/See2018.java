@@ -105,7 +105,7 @@ public class See2018 extends LinearOpMode {
          * Once you've obtained a license key, copy the string from the Vuforia web site
          * and paste it in to your code onthe next line, between the double quotes.
          */
-        parameters.vuforiaLicenseKey = "ATsODcD/////AAAAAVw2lR...d45oGpdljdOh5LuFB9nDNfckoxb8COxKSFX";
+        parameters.vuforiaLicenseKey = "Adiq0Gb/////AAAAme76+E2WhUFamptVVqcYOs8rfAWw8b48caeMVM89dEw04s+/mRV9TqcNvLkSArWax6t5dAy9ISStJNcnGfxwxfoHQIRwFTqw9i8eNoRrlu+8X2oPIAh5RKOZZnGNM6zNOveXjb2bu8yJTQ1cMCdiydnQ/Vh1mSlku+cAsNlmfcL0b69Mt2K4AsBiBppIesOQ3JDcS3g60JeaW9p+VepTG1pLPazmeBTBBGVx471G7sYfkTO0c/W6hyw61qmR+y7GJwn/ECMmXZhhHkNJCmJQy3tgAeJMdKHp62RJqYg5ZLW0FsIh7cOPRkNjpC0GmMCMn8AbtfadVZDwn+MPiF02ZbthQN1N+NEUtURP0BWB1CmA";
 
         /*
          * We also indicate which camera on the RC that we wish to use.
