@@ -49,15 +49,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 //@Disabled
 public class RedRightPicto extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
-
-    OpenGLMatrix lastLocation = null;
-
-
-    VuforiaLocalizer vuforia;
-
-    Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
-    private ElapsedTime runtime = new ElapsedTime();
-
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 3.8;     // For figuring circumference
@@ -65,8 +56,10 @@ public class RedRightPicto extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
-
-
+    OpenGLMatrix lastLocation = null;
+    VuforiaLocalizer vuforia;
+    Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
+    private ElapsedTime runtime = new ElapsedTime();
     //private double distance[] = {12, 12, 12, 12, 12};
     //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
@@ -78,7 +71,7 @@ public class RedRightPicto extends LinearOpMode {
             {-88, -88, -88},
             {16, 20, 24},
             {-4, -4, -4}};
-    private Integer column = 2;//0 for right column 1 for middle colomn and 2 for left column
+    private Integer column = 0 ;//0 for right column 1 for middle colomn and 2 for left column
 
 
     public void runOpMode() {
@@ -121,8 +114,8 @@ public class RedRightPicto extends LinearOpMode {
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
 
-        telemetry.addData(">", "Press Play to start");
-        telemetry.update();
+        //telemetry.addData(">", "Press Play to start");
+        //telemetry.update();
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -145,6 +138,15 @@ public class RedRightPicto extends LinearOpMode {
                  * on which VuMark was visible. */
                 telemetry.addData("VuMark", "%s visible", vuMark);
 
+                switch (vuMark) {
+                    case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
+                        column = 2;
+                    case CENTER:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.CENTER;
+                        column = 1;
+                    case RIGHT:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.RIGHT;
+                        column = 0;
+
+                }
                 /* For fun, we also exhibit the navigational pose. In the Relic Recovery game,
                  * it is perhaps unlikely that you will actually need to act on this pose information, but
                  * we illustrate it nevertheless, for completeness. *
@@ -168,22 +170,21 @@ public class RedRightPicto extends LinearOpMode {
                     double rZ = rot.thirdAngle;*/
 
             } else {
-                telemetry.addData("VuMark", "not visible");
+                telemetry.update();
 
             }
-            telemetry.update();// this is where the program stops and loops until the 30 seconds is up
+            //if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+            //telemetry.update();// this is where the program stops and loops until the 30 seconds is up
 
-        }
+        //}
 
 
 //    String format(OpenGLMatrix transformationMatrix) {
 //        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
 
 
-
-
-    //telemetry.addData("Gyro Heading:", "%.2f", getHeading());
-    //telemetry.update();
+        //telemetry.addData("Gyro Heading:", "%.2f", getHeading());
+        //telemetry.update();
 
 
         gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
@@ -205,10 +206,9 @@ public class RedRightPicto extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[6][column], disandTurn[6][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
 
-
         Outake();
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[7][column], disandTurn[7][column], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
-
+    }
         //gyroturn(40, -TURN_SPEED, TURN_SPEED);
 
         // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[4], distance[4], 5.0);// S8: Forward 48 inches  with 4 Sec timeout

@@ -50,6 +50,7 @@ public class Hardware3050
         Intake     = hwMap.get(DcMotor.class, "intake");
 
         Gyro       = hwMap.get(BNO055IMU.class, "Gyro");
+        //JewelArm   = hwMap.get(DcMotor.class, "Jewelarm");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
