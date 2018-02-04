@@ -63,16 +63,16 @@ public class RedRightPicto extends LinearOpMode {
     //private double distance[] = {12, 12, 12, 12, 12};
     //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
-            {24, 24, 24},
-            {-88, -88, -88},
-            {12, 12, 12},
-            {-135, -135, -135},
-            {12, 8, 4},
-            {-88, -88, -88},
-            {16, 20, 24},
-            {-4, -4, -4}};
-    private Integer column = 0 ;//0 for right column 1 for middle colomn and 2 for left column
-
+            {24, 24, 24,},
+            {-88, -88, -88,},
+            {20, 20, 20,},
+            {-135, -135, -88,},
+            {20, 8, 0,},
+            {-90, -90, -88,},
+            {8, 16, 24,},
+            {-4, -4, -4,}};
+    private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
+    private Integer jewel = 1 ;
 
     public void runOpMode() {
 
@@ -114,15 +114,15 @@ public class RedRightPicto extends LinearOpMode {
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
 
-        //telemetry.addData(">", "Press Play to start");
-        //telemetry.update();
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         relicTrackables.activate();
 
-        while (opModeIsActive()) {
+        //while (opModeIsActive()) {
 
             /**
              * See if any of the instances of {@link relicTemplate} are currently visible.
@@ -131,98 +131,71 @@ public class RedRightPicto extends LinearOpMode {
              * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
              */
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
-
+            while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+                vuMark = RelicRecoveryVuMark.from(relicTemplate);
                 /* Found an instance of the template. In the actual game, you will probably
                  * loop until this condition occurs, then move on to act accordingly depending
                  * on which VuMark was visible. */
-                telemetry.addData("VuMark", "%s visible", vuMark);
-
-                switch (vuMark) {
-                    case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
-                        column = 2;
-                    case CENTER:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.CENTER;
-                        column = 1;
-                    case RIGHT:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.RIGHT;
-                        column = 0;
-
-                }
-                /* For fun, we also exhibit the navigational pose. In the Relic Recovery game,
-                 * it is perhaps unlikely that you will actually need to act on this pose information, but
-                 * we illustrate it nevertheless, for completeness. *
-                *OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose();
-               * telemetry.addData("Pose", format(pose));
-
-                /* We further illustrate how to decompose the pose into useful rotational and
-                 * translational components
-                if (pose != null) {
-                    VectorF trans = pose.getTranslation();
-                    Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-                    // Extract the X, Y, and Z components of the offset of the target relative to the robot
-                    double tX = trans.get(0);
-                    double tY = trans.get(1);
-                    double tZ = trans.get(2);
-
-                    // Extract the rotational components of the target relative to the robot
-                    double rX = rot.firstAngle;
-                    double rY = rot.secondAngle;
-                    double rZ = rot.thirdAngle;*/
-
-            } else {
-                telemetry.update();
-
             }
-            //if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
-            //telemetry.update();// this is where the program stops and loops until the 30 seconds is up
+            telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.update();
+                sleep(550);
 
-        //}
+                           //switch (vuMark) {
+                              // case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
+                                 //  coLumn = 2;
+                              // case CENTER:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.CENTER;
+                                //   coLumn = 1;
+                             //  case RIGHT:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.RIGHT;
+                                  // coLumn = 0;
+                           //}
+                if ( vuMark == RelicRecoveryVuMark.LEFT) {
+                    coLumn = 2;
+                }
+                    else if(vuMark == RelicRecoveryVuMark.RIGHT){
+                coLumn = 0;
+                }
+                else if(vuMark == RelicRecoveryVuMark.CENTER){
+                    coLumn = 1;
+                }
 
 
-//    String format(OpenGLMatrix transformationMatrix) {
-//        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
+          telemetry.addData("coLumn", "%s visible", coLumn);
+                        telemetry.update();
+        sleep(550);
 
 
-        //telemetry.addData("Gyro Heading:", "%.2f", getHeading());
-        //telemetry.update();
 
+//if jewej is red 1 if jewel is blue 2
 
-        gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-        gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-        gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-        gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        if(jewel == 1) {
+            gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        }
+        else if(jewel == 2){
+            gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        }
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][column], disandTurn[0][column], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
+        gyroturn(disandTurn[1][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
 
-        gyroturn(disandTurn[1][column], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][coLumn], disandTurn[2][coLumn], 5.0); // S3:  Forward 43.3 iNCHES
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][column], disandTurn[2][column], 5.0); // S3:  Forward 43.3 iNCHES
+        gyroturn(disandTurn[3][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
 
-        gyroturn(disandTurn[3][column], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[4][coLumn], disandTurn[4][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[4][column], disandTurn[4][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
-        gyroturn(disandTurn[5][column], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        gyroturn(disandTurn[5][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[6][column], disandTurn[6][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[6][coLumn], disandTurn[6][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
 
         Outake();
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[7][column], disandTurn[7][column], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[7][coLumn], disandTurn[7][coLumn], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
     }
-        //gyroturn(40, -TURN_SPEED, TURN_SPEED);
 
-        // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[4], distance[4], 5.0);// S8: Forward 48 inches  with 4 Sec timeout
 
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        //encoderdrive(DRIVE_SPEED,DRIVE SPEED)
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
-    public void DriveTimed(float power, float time)
-    {
-
-    }
 
     public void DriveTicksHeading(float forward,float inches,float desheading)
     {
@@ -315,7 +288,7 @@ public class RedRightPicto extends LinearOpMode {
 
         if(opModeIsActive()) {
             error = getHeading() - desheading;
-            while (((Math.abs(error)) > 1.0f) && (opModeIsActive())) {
+            while (((Math.abs(error)) > 2.0f) && (opModeIsActive())) {
                 telemetry.addData("Path1", "Aiming to %7f :%7f", error, desheading);
                 telemetry.addData("Gyro Heading:", "%.2f", getHeading());
 

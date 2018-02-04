@@ -29,10 +29,10 @@ public class Teleop2017 extends OpMode
         robot.rightMotor.setPower(rightY);
 
         if (gamepad1.left_trigger > .01) {
-            robot.Elevator.setPower(.5);
+            robot.Elevator.setPower(.8);
         }
         else if (gamepad1.left_bumper) {
-            robot.Elevator.setPower(-.5);
+            robot.Elevator.setPower(-.8);
         }
         else
         {
@@ -40,11 +40,11 @@ public class Teleop2017 extends OpMode
         }
 
         if(gamepad1.right_trigger > .01) {
-            robot.Intake.setPower(-1);
+            robot.Intake.setPower(-.6);
         }
         else if(gamepad1.right_bumper)
         {
-            robot.Intake.setPower(1);
+            robot.Intake.setPower(.3);
         }
         else
         {
