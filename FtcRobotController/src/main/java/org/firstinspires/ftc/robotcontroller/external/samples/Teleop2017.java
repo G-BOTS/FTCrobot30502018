@@ -3,6 +3,8 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 /**
  * Created by robot3050 on 11/22/2017.
@@ -44,7 +46,7 @@ public class Teleop2017 extends OpMode
         }
         else if(gamepad1.right_bumper)
         {
-            robot.Intake.setPower(.3);
+            robot.Intake.setPower(.6);
         }
         else
         {
