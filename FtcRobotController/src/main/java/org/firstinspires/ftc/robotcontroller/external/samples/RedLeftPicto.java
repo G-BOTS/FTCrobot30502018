@@ -69,9 +69,9 @@ public class RedLeftPicto extends LinearOpMode {
             {-88, -88, -88,},
             {12, 12, 12,},
             {-120, -120, -120,},
-            {20, 24, 28,},
-            {-180, -180, -180,},
-            {20, 16, 12,},
+            {20, 24, 38,},
+            {-180, -180, -170},
+            {20, 16, 8,},
             {-4, -4, -4,}};
     private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1 ;
@@ -172,11 +172,11 @@ public class RedLeftPicto extends LinearOpMode {
 
         if(jewel == 1) {
             gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(-2, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
         }
         else if(jewel == 2){
             gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(-2, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
         }
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 

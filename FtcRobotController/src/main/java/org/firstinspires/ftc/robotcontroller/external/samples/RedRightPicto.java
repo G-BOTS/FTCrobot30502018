@@ -65,11 +65,11 @@ public class RedRightPicto extends LinearOpMode {
     private float disandTurn[][] = {
             {24, 24, 24,},
             {-88, -88, -88,},
-            {20, 20, 20,},
-            {-135, -135, -88,},
-            {20, 8, 0,},
-            {-90, -90, -88,},
-            {8, 16, 24,},
+            {18, 20, 20,},
+            {-135, -135, -89,},
+            {20, 16, 0,},
+            {-94, -92, -90,},
+            {4, 16, 12,},
             {-4, -4, -4,}};
     private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1 ;
@@ -171,10 +171,12 @@ public class RedRightPicto extends LinearOpMode {
         if(jewel == 1) {
             gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
             gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            sleep(250);
         }
         else if(jewel == 2){
             gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
             gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            sleep(250);
         }
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
