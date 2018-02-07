@@ -69,9 +69,9 @@ public class RedLeftPicto extends LinearOpMode {
             {-88, -88, -88,},
             {12, 12, 12,},
             {-120, -120, -120,},
-            {20, 24, 38,},
-            {-180, -180, -170},
-            {20, 16, 8,},
+            {20, 30, 38,},
+            {-172, -178, -170},
+            {20, 12, 8,},
             {-4, -4, -4,}};
     private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1 ;
