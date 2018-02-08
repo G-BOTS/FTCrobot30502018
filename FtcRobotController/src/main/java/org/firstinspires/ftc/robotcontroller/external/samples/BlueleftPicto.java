@@ -1,16 +1,13 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-/**
- * Created by robot3050 on 2/5/2018.
+/*
+ * Created by robot3050 on 1/4/2018.
  */
-
-
 
         import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
         import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DigitalChannel;
         import com.qualcomm.robotcore.util.ElapsedTime;
         import com.qualcomm.hardware.bosch.BNO055IMU;
 
@@ -48,9 +45,9 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
         import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-@Autonomous(name="3050: RedLeftPicto", group="3050")
+@Autonomous(name="3050: BlueLeftPicto", group="3050")
 //@Disabled
-public class RedLeftPicto extends LinearOpMode {
+public class BlueleftPicto extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
@@ -67,12 +64,12 @@ public class RedLeftPicto extends LinearOpMode {
     //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
             {24, 24, 24,},
-            {-88, -88, -88,},
-            {12, 12, 12,},
-            {-120, -120, -120,},
-            {20, 30, 38,},
-            {-172, -178, -170},
-            {20, 12, 8,},
+            {88, 88, 88,},
+            {18, 20, 20,},
+            {135, 135, 135,},
+            {20, 16, 1,},
+            {94, 92, 90,},
+            {4, 16, 12,},
             {-4, -4, -4,}};
     private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1 ;
@@ -91,10 +88,12 @@ public class RedLeftPicto extends LinearOpMode {
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.JewelArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.JewelArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at %7d :%7d",
@@ -121,7 +120,6 @@ public class RedLeftPicto extends LinearOpMode {
         telemetry.update();
 
 
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         relicTrackables.activate();
@@ -143,7 +141,7 @@ public class RedLeftPicto extends LinearOpMode {
         }
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
-        sleep(550);
+        sleep(250);
 
         //switch (vuMark) {
         // case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
@@ -166,27 +164,30 @@ public class RedLeftPicto extends LinearOpMode {
 
         telemetry.addData("coLumn", "%s visible", coLumn);
         telemetry.update();
-        sleep(550);
+        sleep(250);
 
 
 
 //if jewej is red 1 if jewel is blue 2
+        DriveTicksHeading(-0.1f);
 
         if(jewel == 1) {
             gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(-2, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            sleep(250);
         }
         else if(jewel == 2){
             gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(-2, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            sleep(250);
         }
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
-        gyroturn(disandTurn[1][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+        gyroturn(disandTurn[1][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][coLumn], disandTurn[2][coLumn], 5.0); // S3:  Forward 43.3 iNCHES
 
-        gyroturn(disandTurn[3][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        gyroturn(disandTurn[3][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[4][coLumn], disandTurn[4][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
@@ -201,23 +202,23 @@ public class RedLeftPicto extends LinearOpMode {
 
 
 
-    public void DriveTicksHeading(float forward,float inches,float desheading)
+    public void DriveTicksHeading(float forward)
     {
-        double target = inches * COUNTS_PER_INCH;
-        float MAINTAIN = desheading;
-        float gyro_P = .6f;
+        double target = 20;
+        //float MAINTAIN = desheading;
+        //float gyro_P = .6f;
 
-        while((robot.leftMotor.getCurrentPosition() < target)&&(robot.rightMotor.getCurrentPosition() < target)&&(opModeIsActive()))
+        while(robot.JewelArm.getCurrentPosition() < target);
+        //&&(opModeIsActive()))        {
+        // float err = MAINTAIN - getHeading();
+        // float turn = err * gyro_P;
         {
-            float err = MAINTAIN - getHeading();
-            float turn = err * gyro_P;
-
-            robot.leftMotor.setPower(forward + turn);
-            robot.rightMotor.setPower(forward + turn);
+            robot.JewelArm.setPower(forward );
+            //robot.rightMotor.setPower(forward + turn);
         }
 
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
+        robot.JewelArm.setPower(0);
+        //robot.rightMotor.setPower(0);
     }
 
     public void encoderDrive(double leftspeed, double rightspeed, double leftInches, double rightInches, double timeoutS) {

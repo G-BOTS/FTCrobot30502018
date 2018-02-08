@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 public class Teleop2017 extends OpMode
 {
     Hardware3050 robot = new Hardware3050();
+   // digtalTouch.setMode(DigitalChannel.Mode.INPUT);
 
     @Override
     public void init()
@@ -30,6 +31,7 @@ public class Teleop2017 extends OpMode
         robot.leftMotor.setPower(leftY);
         robot.rightMotor.setPower(rightY);
 
+        //if (gamepad1.left_trigger > .01&&digitalTouch.getState()!=false) {
         if (gamepad1.left_trigger > .01) {
             robot.Elevator.setPower(.8);
         }

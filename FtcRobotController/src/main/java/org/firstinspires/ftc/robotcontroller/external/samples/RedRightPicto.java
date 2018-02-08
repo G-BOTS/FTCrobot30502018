@@ -88,10 +88,12 @@ public class RedRightPicto extends LinearOpMode {
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.JewelArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.JewelArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at %7d :%7d",
@@ -139,7 +141,7 @@ public class RedRightPicto extends LinearOpMode {
             }
             telemetry.addData("VuMark", "%s visible", vuMark);
                 telemetry.update();
-                sleep(550);
+                sleep(250);
 
                            //switch (vuMark) {
                               // case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
@@ -162,11 +164,12 @@ public class RedRightPicto extends LinearOpMode {
 
           telemetry.addData("coLumn", "%s visible", coLumn);
                         telemetry.update();
-        sleep(550);
+        sleep(250);
 
 
 
 //if jewej is red 1 if jewel is blue 2
+        DriveTicksHeading(-0.1f);
 
         if(jewel == 1) {
             gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
@@ -199,23 +202,23 @@ public class RedRightPicto extends LinearOpMode {
 
 
 
-    public void DriveTicksHeading(float forward,float inches,float desheading)
+    public void DriveTicksHeading(float forward)
     {
-        double target = inches * COUNTS_PER_INCH;
-        float MAINTAIN = desheading;
-        float gyro_P = .6f;
+        double target = 20;
+        //float MAINTAIN = desheading;
+        //float gyro_P = .6f;
 
-        while((robot.leftMotor.getCurrentPosition() < target)&&(robot.rightMotor.getCurrentPosition() < target)&&(opModeIsActive()))
+        while(robot.JewelArm.getCurrentPosition() < target);
+            //&&(opModeIsActive()))        {
+           // float err = MAINTAIN - getHeading();
+           // float turn = err * gyro_P;
         {
-            float err = MAINTAIN - getHeading();
-            float turn = err * gyro_P;
-
-            robot.leftMotor.setPower(forward + turn);
-            robot.rightMotor.setPower(forward + turn);
+            robot.JewelArm.setPower(forward );
+            //robot.rightMotor.setPower(forward + turn);
         }
 
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
+        robot.JewelArm.setPower(0);
+        //robot.rightMotor.setPower(0);
     }
 
     public void encoderDrive(double leftspeed, double rightspeed, double leftInches, double rightInches, double timeoutS) {
