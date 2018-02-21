@@ -65,11 +65,11 @@ public class BlueleftPicto extends LinearOpMode {
     private float disandTurn[][] = {
             {24, 24, 24,},
             {88, 88, 88,},
-            {18, 20, 20,},
+            {18, 20, 24,},
             {135, 135, 135,},
-            {20, 16, 1,},
+            {1, 16, 20,},
             {94, 92, 90,},
-            {4, 16, 12,},
+            {8, 16, 12,},
             {-4, -4, -4,}};
     private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1 ;
@@ -168,19 +168,18 @@ public class BlueleftPicto extends LinearOpMode {
 
 
 
-//if jewej is red 1 if jewel is blue 2
-        DriveTicksHeading(-0.1f);
+//if jewel is red 1 if jewel is blue 2
+        //DriveTicksHeading(-0.1f);
 
-        if(jewel == 1) {
-            gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            sleep(250);
-        }
-        else if(jewel == 2){
-            gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            sleep(250);
-        }
+       // if(jewel == 1) {
+           // gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+           // gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+          //  sleep(250);}
+       // else if(jewel == 2){
+           // gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            //gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+           // sleep(250);
+        //}
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
         gyroturn(disandTurn[1][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
@@ -204,20 +203,20 @@ public class BlueleftPicto extends LinearOpMode {
 
     public void DriveTicksHeading(float forward)
     {
-        double target = 20;
+       // double target = 20;
         //float MAINTAIN = desheading;
         //float gyro_P = .6f;
 
-        while(robot.JewelArm.getCurrentPosition() < target);
+       // while(robot.JewelArm.getCurrentPosition() < target);
         //&&(opModeIsActive()))        {
         // float err = MAINTAIN - getHeading();
         // float turn = err * gyro_P;
-        {
-            robot.JewelArm.setPower(forward );
+      //  {
+           // robot.JewelArm.setPower(forward );
             //robot.rightMotor.setPower(forward + turn);
-        }
+      //  }
 
-        robot.JewelArm.setPower(0);
+       // robot.JewelArm.setPower(0);
         //robot.rightMotor.setPower(0);
     }
 

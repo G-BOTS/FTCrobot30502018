@@ -141,7 +141,7 @@ public class BlueRightPicto extends LinearOpMode {
         }
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
-        sleep(550);
+        sleep(250);
 
         //switch (vuMark) {
         // case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
@@ -164,20 +164,20 @@ public class BlueRightPicto extends LinearOpMode {
 
         telemetry.addData("coLumn", "%s visible", coLumn);
         telemetry.update();
-        sleep(550);
+        sleep(250);
 
 
 
 //if jewej is red 1 if jewel is blue 2
 
-       if(jewel == 1) {
-            gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-           gyroturn(-2, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-       }
-        else if(jewel == 2){
-            gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            gyroturn(-2, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-        }
+       //(jewel == 1) {
+           // gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+           //gyroturn(-2, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+      // }
+        //else if(jewel == 2){
+            //gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+           // gyroturn(-2, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+       // }
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
         gyroturn(disandTurn[1][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);

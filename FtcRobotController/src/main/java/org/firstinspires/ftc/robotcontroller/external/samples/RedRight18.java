@@ -37,7 +37,7 @@ public class RedRight18 extends LinearOpMode {
     private float disandTurn[][] = {
             {24,24,24},
             {45,88,88},
-            {8,11,18},
+            {8,11,20},
             {0,3,0},
             {4,8,8},
             {-4,-4,-4}};
