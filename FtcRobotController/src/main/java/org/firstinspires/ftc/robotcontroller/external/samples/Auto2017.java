@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="3050: First Autonomous", group="3050")
 @Disabled
-public class Auto2017  extends LinearOpMode {
+public class Auto2017 extends LinearOpMode {
 
     Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();

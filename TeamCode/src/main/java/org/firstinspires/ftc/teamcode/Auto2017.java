@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 /*
- * Created by robot3050 on 1/4/2018.
+ * Created by ferasmus on 12/28/2016.
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -9,16 +9,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.hardware.bosch.BNO055IMU;
 
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-
-//@Autonomous(name="3050: Redleft18", group="3050")
-//@Disabled
-public class RedLeft18 extends LinearOpMode {
+@Autonomous(name="3050: First Autonomous", group="3050")
+@Disabled
+public class Auto2017  extends LinearOpMode {
 
     Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
@@ -29,15 +23,11 @@ public class RedLeft18 extends LinearOpMode {
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.3;
+    static final double TURN_SPEED = 0.5;
 
+    private double distance[] = {24,43.3f,12,48,48 };
+    private float gyrodegree[] = {56.3f, -33.7f,-5.0f};
 
-private float disandTurn[][] = {
-        {30,36,42},
-        {-80,-85,-90},
-        {10,10,10},
-        {-4,-4,-4}};
-    private Integer column = 1;
 
     public void runOpMode() {
 
@@ -68,51 +58,43 @@ private float disandTurn[][] = {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        telemetry.addData("Gyro Heading:", "%.2f", getHeading());
-        telemetry.update();
-
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][column], disandTurn[0][column], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
-
-        gyroturn(disandTurn[1][column], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
-
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][column], disandTurn[2][column], 5.0); // S3:  Forward 43.3 iNCHES
-
-       Outake();// run the outake motor to deposit blocks
-
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[3][column], disandTurn[3][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
-
-
+        //DriveTicksHeading(0.5f, 12, 0);
+        //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[1], distance[1], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
+       // gyroturn(gyrodegree[1], TURN_SPEED, -TURN_SPEED);
+       // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[2], distance[2], 5.0); // S3:  Forward 43.3 iNCHES
+        //gyroturn(gyrodegree[2], TURN_SPEED, -TURN_SPEED);
+       // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[3], distance[3], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
+        //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[4], distance[4], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
+        //gyroturn(gyrodegree[3], TURN_SPEED, -TURN_SPEED);
+       // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[5], distance[5], 5.0);// S8: Forward 48 inches  with 4 Sec timeout
+        
+        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        //encoderdrive(DRIVE_SPEED,DRIVE SPEED)
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
-    public void DriveTimed(float power, float time)
-    {
-
-    }
-
-    public void DriveTicksHeading(float forward,float inches,float desheading)
-    {
+    public void DriveTicksHeading(float forward,float inches,float desheading) {
         double target = inches * COUNTS_PER_INCH;
         float MAINTAIN = desheading;
         float gyro_P = .6f;
 
-        while((robot.leftMotor.getCurrentPosition() < target)&&(robot.rightMotor.getCurrentPosition() < target)&&(opModeIsActive()))
-        {
-            float err = MAINTAIN - getHeading();
-            float turn = err * gyro_P;
+        //float angle_error = MAINTAIN - robot.Gyro.getHeading();
+        //float turn = angle_error * gyro_P;
 
-            robot.leftMotor.setPower(forward + turn);
-            robot.rightMotor.setPower(forward + turn);
+        while ((robot.leftMotor.getCurrentPosition() < target) && (robot.rightMotor.getCurrentPosition() < target) && (opModeIsActive())) {
+            //float err = MAINTAIN - robot.Gyro.getHeading();
+            //turn = err * gyro_P;
+
+            //robot.leftMotor.setPower(forward + turn);
+            //robot.rightMotor.setPower(forward + turn);
         }
 
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
     }
-
     public void encoderDrive(double leftspeed, double rightspeed, double leftInches, double rightInches, double timeoutS) {
         int newLeftTarget;
         int newRightTarget;
@@ -144,7 +126,6 @@ private float disandTurn[][] = {
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
                         robot.rightMotor.getCurrentPosition());
-                telemetry.addData("Gyro Heading:", "%.2f", getHeading());
                 telemetry.update();
             }
 
@@ -156,27 +137,8 @@ private float disandTurn[][] = {
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(250);   // optional pause after each move
+            //  sleep(250);   // optional pause after each move
         }
-    }
-    public void Drive(double leftspeed, double rightspeed,double timeoutS)
-    {
-        runtime.reset();
-        while(runtime.seconds() < timeoutS) {
-            robot.leftMotor.setPower(leftspeed);
-            robot.rightMotor.setPower(rightspeed);
-        }
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
-
-    }
-    public void Outake()
-    {
-        runtime.reset();
-        while(runtime.seconds()< .7) {
-            robot.Intake.setPower(-1.0f);
-        }
-        robot.Intake.setPower(0);
     }
 
     public void gyroturn(float desheading, double leftspeed, double rightspeed)
@@ -184,17 +146,14 @@ private float disandTurn[][] = {
         float error;
 
         if(opModeIsActive()) {
-            error = getHeading() - desheading;
-            while (((Math.abs(error)) > 1.0f) && (opModeIsActive())) {
+            //error = robot.Gyro.getHeading() - desheading;
+            /*while ((Math.abs(error)) > 0.0f) {
                 telemetry.addData("Path1", "Aiming to %7f :%7f", error, desheading);
-                telemetry.addData("Gyro Heading:", "%.2f", getHeading());
 
                 telemetry.update();
                 robot.leftMotor.setPower(leftspeed);
                 robot.rightMotor.setPower(rightspeed);
-
-                error = getHeading() - desheading;
-            }
+            }*/
             robot.leftMotor.setPower(0);
             robot.rightMotor.setPower(0);
         }
@@ -202,10 +161,7 @@ private float disandTurn[][] = {
 
     float getHeading()
     {
-        return robot.Gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        return 0;//return robot.Gyro.getHeading();
     }
 
 }
-
-
-

@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-@Autonomous(name="3050: RedRight18", group="3050")
+//@Autonomous(name="3050: RedRight18", group="3050")
 //@Disabled
 public class RedRight18 extends LinearOpMode {
 

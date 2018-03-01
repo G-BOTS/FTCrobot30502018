@@ -1,24 +1,21 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 /*
  * Created by robot3050 on 1/4/2018.
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.hardware.bosch.BNO055IMU;
 
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-//@Autonomous(name="3050: Redleft18", group="3050")
+@Autonomous(name="3050: BlueRight18", group="3050")
 //@Disabled
-public class RedLeft18 extends LinearOpMode {
+public class BlueRight18 extends LinearOpMode {
 
     Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
@@ -31,12 +28,13 @@ public class RedLeft18 extends LinearOpMode {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
 
-
-private float disandTurn[][] = {
-        {30,36,42},
-        {-80,-85,-90},
-        {10,10,10},
-        {-4,-4,-4}};
+    private double distance[] = {12,12,12,12,12 };
+    private float turndistance[] = {14, -14,-7};//positive turns to the right, negative turns to the left,  14 for 90deg
+    private float disandTurn[][] = {
+            {30,36,42},
+            {90,88,88},
+            {8,8,8},
+            {-4,-4,-4}};
     private Integer column = 1;
 
     public void runOpMode() {
@@ -73,18 +71,31 @@ private float disandTurn[][] = {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        //Drive(.5f,.5f,1.0f);
+        //Outake();
+        // Drive(-.5f,-.5f,.19f);
+        //DriveTicksHeading(0.5f, 12, 0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][column], disandTurn[0][column], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
-        gyroturn(disandTurn[1][column], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+        gyroturn( disandTurn[1][column], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][column], disandTurn[2][column], 5.0); // S3:  Forward 43.3 iNCHES
 
-       Outake();// run the outake motor to deposit blocks
+        Outake();
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[3][column], disandTurn[3][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
+        //gyroturn(-45, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[2], -turndistance[2], 5.0);
 
+        //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[3], distance[3], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
+
+        //gyroturn(40, -TURN_SPEED, TURN_SPEED);
+
+        // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[4], distance[4], 5.0);// S8: Forward 48 inches  with 4 Sec timeout
+
+        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        //encoderdrive(DRIVE_SPEED,DRIVE SPEED)
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -206,6 +217,4 @@ private float disandTurn[][] = {
     }
 
 }
-
-
 

@@ -1,16 +1,13 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by robot3050 on 11/22/2017.
  */
 
-//@TeleOp(name="3050: Teleop 2017", group="3050")
+@TeleOp(name="3050: Teleop 2017", group="3050")
 //@Disabled
 public class Teleop2017 extends OpMode
 {

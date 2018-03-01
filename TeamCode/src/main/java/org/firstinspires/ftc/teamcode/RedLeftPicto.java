@@ -1,28 +1,30 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
-/*
- * Created by robot3050 on 1/4/2018.
+/**
+ * Created by robot3050 on 2/5/2018.
  */
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.hardware.bosch.BNO055IMU;
 
-import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-//@Autonomous(name="3050: BlueRight18", group="3050")
-@Disabled
-public class BlueRight18 extends LinearOpMode {
 
-    Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
-    private ElapsedTime runtime = new ElapsedTime();
-
+@Autonomous(name="3050: RedLeftPicto", group="3050")
+//@Disabled
+public class RedLeftPicto extends LinearOpMode {
+    public static final String TAG = "Vuforia VuMark Sample";
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 3.8;     // For figuring circumference
@@ -30,15 +32,23 @@ public class BlueRight18 extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
-
-    private double distance[] = {12,12,12,12,12 };
-    private float turndistance[] = {14, -14,-7};//positive turns to the right, negative turns to the left,  14 for 90deg
+    OpenGLMatrix lastLocation = null;
+    VuforiaLocalizer vuforia;
+    Hardware3050 robot = new Hardware3050();   // Use a Pushbot's hardware
+    private ElapsedTime runtime = new ElapsedTime();
+    //private double distance[] = {12, 12, 12, 12, 12};
+    //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
-            {30,36,42},
-            {90,88,88},
-            {8,8,8},
-            {-4,-4,-4}};
-    private Integer column = 1;
+            {24, 24, 24,},
+            {-88, -88, -88,},
+            {12, 12, 12,},
+            {-120, -120, -120,},
+            {20, 30, 38,},
+            {-172, -178, -170},
+            {20, 12, 8,},
+            {-4, -4, -4,}};
+    private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
+    private Integer jewel = 1 ;
 
     public void runOpMode() {
 
@@ -66,47 +76,103 @@ public class BlueRight18 extends LinearOpMode {
         telemetry.addData("Gyro Heading:", "%.4f", getHeading());
         telemetry.update();
 
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "Adiq0Gb/////AAAAme76+E2WhUFamptVVqcYOs8rfAWw8b48caeMVM89dEw04s+/mRV9TqcNvLkSArWax6t5dAy9ISStJNcnGfxwxfoHQIRwFTqw9i8eNoRrlu+8X2oPIAh5RKOZZnGNM6zNOveXjb2bu8yJTQ1cMCdiydnQ/Vh1mSlku+cAsNlmfcL0b69Mt2K4AsBiBppIesOQ3JDcS3g60JeaW9p+VepTG1pLPazmeBTBBGVx471G7sYfkTO0c/W6hyw61qmR+y7GJwn/ECMmXZhhHkNJCmJQy3tgAeJMdKHp62RJqYg5ZLW0FsIh7cOPRkNjpC0GmMCMn8AbtfadVZDwn+MPiF02ZbthQN1N+NEUtURP0BWB1CmA";
+
+
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
+
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        relicTrackables.activate();
 
-        telemetry.addData("Gyro Heading:", "%.2f", getHeading());
+        //while (opModeIsActive()) {
+
+        /**
+         * See if any of the instances of {@link relicTemplate} are currently visible.
+         * {@link RelicRecoveryVuMark} is an enum which can have the following values:
+         * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
+         * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
+         */
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
+            vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                /* Found an instance of the template. In the actual game, you will probably
+                 * loop until this condition occurs, then move on to act accordingly depending
+                 * on which VuMark was visible. */
+        }
+        telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
+        sleep(550);
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        //Drive(.5f,.5f,1.0f);
-        //Outake();
-        // Drive(-.5f,-.5f,.19f);
-        //DriveTicksHeading(0.5f, 12, 0);
+        //switch (vuMark) {
+        // case LEFT: //RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.LEFT;
+        //  coLumn = 2;
+        // case CENTER:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.CENTER;
+        //   coLumn = 1;
+        //  case RIGHT:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.RIGHT;
+        // coLumn = 0;
+        //}
+        if ( vuMark == RelicRecoveryVuMark.LEFT) {
+            coLumn = 2;
+        }
+        else if(vuMark == RelicRecoveryVuMark.RIGHT){
+            coLumn = 0;
+        }
+        else if(vuMark == RelicRecoveryVuMark.CENTER){
+            coLumn = 1;
+        }
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][column], disandTurn[0][column], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
-        gyroturn( disandTurn[1][column], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+        telemetry.addData("coLumn", "%s visible", coLumn);
+        telemetry.update();
+        sleep(550);
 
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][column], disandTurn[2][column], 5.0); // S3:  Forward 43.3 iNCHES
+
+
+//if jewej is red 1 if jewel is blue 2
+
+       // if(jewel == 1) {
+         //   gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            //gyroturn(-2, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        //}
+        //else if(jewel == 2){
+           // gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+           // gyroturn(-2, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        //}
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
+
+        gyroturn(disandTurn[1][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][coLumn], disandTurn[2][coLumn], 5.0); // S3:  Forward 43.3 iNCHES
+
+        gyroturn(disandTurn[3][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[4][coLumn], disandTurn[4][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
+
+        gyroturn(disandTurn[5][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[6][coLumn], disandTurn[6][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
+
 
         Outake();
-
-        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[3][column], disandTurn[3][column], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
-
-        //gyroturn(-45, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[2], -turndistance[2], 5.0);
-
-        //encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[3], distance[3], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
-
-        //gyroturn(40, -TURN_SPEED, TURN_SPEED);
-
-        // encoderDrive(DRIVE_SPEED, DRIVE_SPEED, distance[4], distance[4], 5.0);// S8: Forward 48 inches  with 4 Sec timeout
-
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        //encoderdrive(DRIVE_SPEED,DRIVE SPEED)
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
+        encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[7][coLumn], disandTurn[7][coLumn], 5.0);// S6: Forward 48 inches  with 4 Sec timeout
     }
-    public void DriveTimed(float power, float time)
-    {
 
-    }
+
 
     public void DriveTicksHeading(float forward,float inches,float desheading)
     {
@@ -199,7 +265,7 @@ public class BlueRight18 extends LinearOpMode {
 
         if(opModeIsActive()) {
             error = getHeading() - desheading;
-            while (((Math.abs(error)) > 1.0f) && (opModeIsActive())) {
+            while (((Math.abs(error)) > 2.0f) && (opModeIsActive())) {
                 telemetry.addData("Path1", "Aiming to %7f :%7f", error, desheading);
                 telemetry.addData("Gyro Heading:", "%.2f", getHeading());
 
@@ -220,4 +286,6 @@ public class BlueRight18 extends LinearOpMode {
     }
 
 }
+
+
 

@@ -1,53 +1,28 @@
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 /*
  * Created by robot3050 on 1/4/2018.
  */
 
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.util.ElapsedTime;
-        import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-        import org.firstinspires.ftc.robotcore.external.ClassFactory;
-        import org.firstinspires.ftc.robotcore.external.Func;
-        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-        import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-        import org.firstinspires.ftc.robotcore.external.ClassFactory;
-        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-        import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-//@Autonomous(name="3050: BlueLeftPictoo", group="3050")
+@Autonomous(name = "3050: RedRightPicto", group = "3050")
 //@Disabled
-public class BlueleftPicto extends LinearOpMode {
+public class RedRightPicto extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: AndyMark Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
@@ -64,15 +39,16 @@ public class BlueleftPicto extends LinearOpMode {
     //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
             {24, 24, 24,},
-            {88, 88, 88,},
-            {18, 20, 24,},
-            {135, 135, 135,},
-            {1, 16, 20,},
-            {94, 92, 90,},
-            {8, 16, 12,},
+            {-88, -88, -88,},
+            {18, 20, 20,},
+            {-135, -135, -135,},
+            {20, 16, 3,},
+            {-94, -92, -92,},
+            {13, 16, 12,},
             {-4, -4, -4,}};
-    private Integer coLumn = 0 ;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
-    private Integer jewel = 1 ;
+    private Integer coLumn = 0;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
+    private Integer jewel = 1;
+    //private Float forward = 0.3;
 
     public void runOpMode() {
 
@@ -151,13 +127,11 @@ public class BlueleftPicto extends LinearOpMode {
         //  case RIGHT:// RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.RIGHT;
         // coLumn = 0;
         //}
-        if ( vuMark == RelicRecoveryVuMark.LEFT) {
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
             coLumn = 2;
-        }
-        else if(vuMark == RelicRecoveryVuMark.RIGHT){
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
             coLumn = 0;
-        }
-        else if(vuMark == RelicRecoveryVuMark.CENTER){
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
             coLumn = 1;
         }
 
@@ -167,30 +141,30 @@ public class BlueleftPicto extends LinearOpMode {
         sleep(250);
 
 
+//if jewej is red 1 if jewel is blue 2
+       // DriveTicksHeading(-0.1f,20);
 
-//if jewel is red 1 if jewel is blue 2
-        //DriveTicksHeading(-0.1f);
-
-       // if(jewel == 1) {
+       // if (jewel == 1) {
            // gyroturn(-10, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
            // gyroturn(0, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-          //  sleep(250);}
-       // else if(jewel == 2){
-           // gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
-            //gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
            // sleep(250);
+        //} else if (jewel == 2) {
+            //gyroturn(10, -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            //gyroturn(0, TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+            //sleep(250);
         //}
+       // DriveTicksHeading(0.1f,20);
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[0][coLumn], disandTurn[0][coLumn], 5.0);  // S1: Forward 24 Inches with 5 Sec timeout shoot ball
 
-        gyroturn(disandTurn[1][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
+        gyroturn(disandTurn[1][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[0], -turndistance[0], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[2][coLumn], disandTurn[2][coLumn], 5.0); // S3:  Forward 43.3 iNCHES
 
-        gyroturn(disandTurn[3][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        gyroturn(disandTurn[3][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[4][coLumn], disandTurn[4][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
-        gyroturn(disandTurn[5][coLumn], TURN_SPEED, -TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
+        gyroturn(disandTurn[5][coLumn], -TURN_SPEED, TURN_SPEED); //encoderDrive(TURN_SPEED, TURN_SPEED, turndistance[1], -turndistance[1], 5.0);
 
         encoderDrive(DRIVE_SPEED, DRIVE_SPEED, disandTurn[6][coLumn], disandTurn[6][coLumn], 5.0);// S5: Forward 12 Inches with 4 Sec timeout
 
@@ -200,23 +174,22 @@ public class BlueleftPicto extends LinearOpMode {
     }
 
 
-
-    public void DriveTicksHeading(float forward)
+    public void DriveTicksHeading( float forward,double target)
     {
-       // double target = 20;
+        //double target = 20;
         //float MAINTAIN = desheading;
         //float gyro_P = .6f;
 
-       // while(robot.JewelArm.getCurrentPosition() < target);
+        while (robot.JewelArm.getCurrentPosition() < target) ;
         //&&(opModeIsActive()))        {
         // float err = MAINTAIN - getHeading();
         // float turn = err * gyro_P;
-      //  {
-           // robot.JewelArm.setPower(forward );
+        {
+            robot.JewelArm.setPower(forward);
             //robot.rightMotor.setPower(forward + turn);
-      //  }
+        }
 
-       // robot.JewelArm.setPower(0);
+        robot.JewelArm.setPower(0);
         //robot.rightMotor.setPower(0);
     }
 
@@ -266,10 +239,10 @@ public class BlueleftPicto extends LinearOpMode {
             sleep(250);   // optional pause after each move
         }
     }
-    public void Drive(double leftspeed, double rightspeed,double timeoutS)
-    {
+
+    public void Drive(double leftspeed, double rightspeed, double timeoutS) {
         runtime.reset();
-        while(runtime.seconds() < timeoutS) {
+        while (runtime.seconds() < timeoutS) {
             robot.leftMotor.setPower(leftspeed);
             robot.rightMotor.setPower(rightspeed);
         }
@@ -277,20 +250,19 @@ public class BlueleftPicto extends LinearOpMode {
         robot.rightMotor.setPower(0);
 
     }
-    public void Outake()
-    {
+
+    public void Outake() {
         runtime.reset();
-        while(runtime.seconds()< .7) {
+        while (runtime.seconds() < .7) {
             robot.Intake.setPower(-1.0f);
         }
         robot.Intake.setPower(0);
     }
 
-    public void gyroturn(float desheading, double leftspeed, double rightspeed)
-    {
+    public void gyroturn(float desheading, double leftspeed, double rightspeed) {
         float error;
 
-        if(opModeIsActive()) {
+        if (opModeIsActive()) {
             error = getHeading() - desheading;
             while (((Math.abs(error)) > 2.0f) && (opModeIsActive())) {
                 telemetry.addData("Path1", "Aiming to %7f :%7f", error, desheading);
@@ -307,8 +279,7 @@ public class BlueleftPicto extends LinearOpMode {
         }
     }
 
-    float getHeading()
-    {
+    float getHeading() {
         return robot.Gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     }
 

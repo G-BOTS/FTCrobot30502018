@@ -46,7 +46,7 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
         import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-@Autonomous(name="3050: BlueRightPicto", group="3050")
+//@Autonomous(name="3050: BlueRightPicto", group="3050")
 //@Disabled
 public class BlueRightPicto extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
