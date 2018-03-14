@@ -189,7 +189,7 @@ public class RedRightPicto extends LinearOpMode {
             //robot.rightMotor.setPower(forward + turn);
         }
 
-        robot.JewelArm.setPower(0);
+        robot.JewelArm.setPower(0-200);
         //robot.rightMotor.setPower(0);
     }
 

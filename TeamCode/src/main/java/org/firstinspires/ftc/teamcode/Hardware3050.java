@@ -44,7 +44,6 @@ public class Hardware3050
         Elevator   = hwMap.get(DcMotor.class, "elevator");
         Intake     = hwMap.get(DcMotor.class, "intake");
         JewelArm   = hwMap.get(DcMotor.class, "jewelarm");
-
         Gyro       = hwMap.get(BNO055IMU.class, "Gyro");
 
 
@@ -78,6 +77,6 @@ public class Hardware3050
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         JewelArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
