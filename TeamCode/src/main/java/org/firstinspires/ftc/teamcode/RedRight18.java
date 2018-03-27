@@ -33,12 +33,12 @@ public class RedRight18 extends LinearOpMode {
     private float turndistance[] = {14, -14,-7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
             {24,24,24},
-            {45,88,88},
+            {90,88,88},
             {8,11,20},
-            {0,3,0},
+            {3,3,3},
             {4,8,8},
             {-4,-4,-4}};
-    private Integer column = 2;//0 for right column 1 for middle colomn and 2 for left column
+    private Integer column = 1;//0 for right column 1 for middle colomn and 2 for left column
 
 
     public void runOpMode() {

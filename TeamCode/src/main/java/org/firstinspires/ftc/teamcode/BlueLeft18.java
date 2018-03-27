@@ -32,8 +32,8 @@ public class BlueLeft18 extends LinearOpMode {
     private float turndistance[] = {14, -14,-7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
             {24,24,24},
-            {-45,-88,-88},
-            {8,11,18},
+            {-90,-88,-88},
+            {8,11,20},
             {3,3,3},
             {4,8,8},
             {-4,-4,-4}};

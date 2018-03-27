@@ -63,14 +63,14 @@ public class RedRightPicto extends LinearOpMode {
     //private double distance[] = {12, 12, 12, 12, 12};
     //private float turndistance[] = {14, -14, -7};//positive turns to the right, negative turns to the left,  14 for 90deg
     private float disandTurn[][] = {
-            {24, 24, 24,},
-            {-88, -88, -88,},
-            {18, 20, 20,},
-            {-135, -135, -135,},
-            {20, 16, 3,},
-            {-94, -92, -92,},
-            {13, 16, 12,},
-            {-4, -4, -4,}};
+            {24, 24, 24,},        // 0 index
+            {-88, -88, -88,},     // 1 index
+            {18, 20, 20,},        // 2 index
+            {-135, -135, -135,},  // 3 index
+            {21, 13, 3,},         //4 index
+            {-94, -92, -92,},     //5 index
+            {10, 13, 12,},        //6 index
+            {-4, -4, -4,}};       //7 index
     private Integer coLumn = 0;//0 for right coLumn 1 for middle colomn and 2 for left coLumn
     private Integer jewel = 1;
     //private Float forward = 0.3;

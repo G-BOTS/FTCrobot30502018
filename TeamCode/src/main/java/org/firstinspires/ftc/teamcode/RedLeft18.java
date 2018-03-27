@@ -28,8 +28,9 @@ public class RedLeft18 extends LinearOpMode {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.3;
 
-
-private float disandTurn[][] = {
+    private double distance[] = {12,12,12,12,12 };
+    private float turndistance[] = {14, -14,-7};//positive turns to the right, negative turns to the left,  14 for 90deg
+    private float disandTurn[][] = {
         {30,36,42},
         {-80,-85,-90},
         {10,10,10},

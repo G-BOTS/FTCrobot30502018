@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Teleop2017new extends OpMode
 {
     Hardware3050 robot = new Hardware3050();
-    // digtalTouch.setMode(DigitalChannel.Mode.INPUT);
+    // digitalTouch.setMode(DigitalChannel.Mode.INPUT);
 
     @Override
     public void init () {
@@ -44,13 +43,21 @@ public class Teleop2017new extends OpMode
         }
 
         if (gamepad1.right_trigger > .01) {
-            robot.JewelArm.setPower(-.1);
+            robot.JewelArm.setPower(.1);
         } else if (gamepad1.right_bumper) {
-            robot.JewelArm.setPower(.3);
+            robot.JewelArm.setPower(-.3);
         } else {
             robot.JewelArm.setPower(0);
         }
-
+        if (gamepad1.a) {
+            robot.Intake.setPower(.6);
+        }
+         else if (gamepad1.b) {
+            robot.Intake.setPower(-.6);
+        }
+         else {
+            robot.Intake.setPower(0);
+        }
         telemetry.addData("Elevator Power", "%f", robot.Elevator.getPower());
         telemetry.update();
     }
