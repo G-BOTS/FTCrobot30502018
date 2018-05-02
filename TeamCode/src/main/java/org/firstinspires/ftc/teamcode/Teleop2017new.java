@@ -28,10 +28,14 @@ public class Teleop2017new extends OpMode
     @Override
     public void loop() {
         float leftY = -gamepad1.left_stick_y;
+        float leftX = -gamepad1.left_stick_x;
         float rightY = -gamepad1.right_stick_y;
+        float rightX = -gamepad1.right_stick_x;
 
         robot.leftMotor.setPower(leftY);
+        robot.leftMotor.setPower(leftX);
         robot.rightMotor.setPower(rightY);
+        robot.rightMotor.setPower(rightX);
 
         //if (gamepad1.left_trigger > .01&&digitalTouch.getState()!=false) {
         if (gamepad1.left_trigger > .01) {
